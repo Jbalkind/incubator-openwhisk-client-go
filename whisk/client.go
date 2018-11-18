@@ -403,6 +403,7 @@ func (c *Client) Do(req *http.Request, v interface{}, ExitWithErrorOnTimeout boo
 		data != nil && // HTTP response body exists
 		v != nil &&
 		!strings.Contains(reflect.TypeOf(v).String(), "Activation") && // Request is not `wsk activation get`
+		!strings.Contains(reflect.TypeOf(v).String(), "Action") && // Request is not `wsk activation get`
 		!(req.URL.Query().Get("result") == "true") && // Request is not `wsk action invoke NNN --result`
 		!IsResponseResultSuccess(data) { // HTTP response body has Whisk error result
 		Debug(DbgInfo, "Got successful HTTP; but activation response reports an error\n")
